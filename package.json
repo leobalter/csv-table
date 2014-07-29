@@ -1,6 +1,6 @@
 {
   "name": "csv-table",
-  "version": "0.1.1",
+ "version": "0.1.2",
   "description": "Prints a table out of the pointed CSV file.",
   "main": "index.js",
   "bin": {
