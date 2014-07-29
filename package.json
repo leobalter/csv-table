@@ -1,13 +1,13 @@
 {
   "name": "csv-table",
- "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Prints a table out of the pointed CSV file.",
   "main": "index.js",
   "bin": {
     "csv-table": "./bin/csv-table"
   },
   "scripts": {
-    "test": "jshint bin/csv-table lib/*.js test/*.js && nodeunit test/test.js"
+    "test": "jshint bin/csv-table lib/*.js test/*.js && nodeunit test/lib.index.test.js"
   },
   "keywords": [
     "table",
@@ -29,8 +29,9 @@
     "json-table": "0.1.3"
   },
   "devDependencies": {
-    "chalk": "0.5.1",
+    "chalk": "^0.5.1",
+    "debug": "^1.0.4",
     "jshint": "2.5.2",
-    "nodeunit": "0.9.0"
+    "nodeunit": "^0.9.0"
   }
 }
