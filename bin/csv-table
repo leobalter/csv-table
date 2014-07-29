@@ -45,9 +45,7 @@ program.args.forEach(function( csvFile ) {
 		options.rowDelimiter = program.rowDelimiter;
 	}
 
-	parser( csvFile, options, function( data ) {
-		console.log( data );
-	});
+	parser( csvFile, options );
 });
 
 // Not enough arguments

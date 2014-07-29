@@ -24,10 +24,21 @@ exports.cli = function( test ) {
 
 exports.api = function( test ) {
 	var parser = require( __dirname + "/../lib/index.js" );
+	var jsonData = require( path.normalize( __dirname + "/data-out.json" ) );
 
-	parser( "test/data-in.csv", { columns: true }, function( data ) {
+	test.expect( 7 );
+
+	parser( "test/data-in.csv", { columns: true }, function( data, obj ) {
+		var i = 0;
 		data = chalk.stripColor( data );
-		test.equal( data, dataOut, 'API returns the printed table' );
+		test.equal( data, dataOut, "API returns the printed table" );
+		test.deepEqual( obj.options.head, jsonData.options.head );
+
+		while( obj[ i ] != null ) {
+			test.deepEqual( obj[ i ], jsonData[ i ] );
+			i++;
+		}
+
 		test.done();
 	});
 };
