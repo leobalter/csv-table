@@ -32,16 +32,16 @@ program.args.forEach(function( csvFile ) {
 		skip_empty_lines: !!program.skip
 	};
 
-	if ( options.quote != null ) {
+	if ( typeof program.quote !== "undefined" ) {
 		options.quote = program.quote;
 	}
-	if ( options.comment != null ) {
+	if ( typeof program.comment !== "undefined" ) {
 		options.comment = program.comment;
 	}
-	if ( options.escape != null ) {
+	if ( typeof program.escape !== "undefined" ) {
 		options.escape = program.escape;
 	}
-	if ( options.rowDelimiter != null ) {
+	if ( typeof program.rowDelimiter !== "undefined" ) {
 		options.rowDelimiter = program.rowDelimiter;
 	}
 

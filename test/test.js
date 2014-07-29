@@ -34,7 +34,7 @@ exports.api = function( test ) {
 		test.equal( data, dataOut, "API returns the printed table" );
 		test.deepEqual( obj.options.head, jsonData.options.head );
 
-		while( obj[ i ] != null ) {
+		while( obj[ i ] ) {
 			test.deepEqual( obj[ i ], jsonData[ i ] );
 			i++;
 		}
