@@ -1,0 +1,56 @@
+#!/usr/bin/env node
+var program = require( "commander" ),
+	parser = require( "../lib/index.js" );
+
+program.version( require( "../package.json" ).version );
+
+program
+	.usage( "[options] <file ...>" )
+	.option( "-d, --delimiter <value>", "Sets the delimiter, defaults to ';'" )
+	.option( "-c, --columns", "Use CSV columns headers" )
+	.option( "-t, --trim", "trim values" )
+	.option( "-l, --ltrim", "left trim values" )
+	.option( "-r, --rtrim", "right trim values" )
+	.option( "-s, --skip", "skip empty lines" )
+	.option( "-q, --quote <value>", "Quote character, defaults to '\"'" )
+	.option( "-m, --comment <value>", "Comment character, default is none" )
+	.option( "-e, --escape <value>", "Escape character, default is '\"'" )
+	.option( "-r, --rowDelimiter <value>", "Row delimiter character, default is '\\n'" )
+	.parse( process.argv );
+
+program.on( "--help", function() {
+	console.log( "This app prints a table out of the pointed CSV file." );
+});
+
+program.args.forEach(function( csvFile ) {
+	var options = {
+		delimiter: program.delimiter,
+		columns: !!program.columns,
+		trim: !!program.trim,
+		ltrim: !!program.ltrim,
+		rtrim: !!program.rtrim,
+		skip_empty_lines: !!program.skip
+	};
+
+	if ( options.quote != null ) {
+		options.quote = program.quote;
+	}
+	if ( options.comment != null ) {
+		options.comment = program.comment;
+	}
+	if ( options.escape != null ) {
+		options.escape = program.escape;
+	}
+	if ( options.rowDelimiter != null ) {
+		options.rowDelimiter = program.rowDelimiter;
+	}
+
+	parser( csvFile, options, function( data ) {
+		console.log( data );
+	});
+});
+
+// Not enough arguments
+if ( !program.args.length ) {
+	program.help();
+}
