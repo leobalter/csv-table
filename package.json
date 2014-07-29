@@ -9,8 +9,20 @@
   "scripts": {
     "test": "nodeunit test/test.js"
   },
+  "keywords": [
+    "table",
+    "csv",
+    "json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/leobalter/csv-table.git"
+  },
   "author": "Leo Balter",
-  "license": "ISC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leobalter/csv-table/issues"
+  },
   "dependencies": {
     "commander": "^2.3.0",
     "csv-parse": "0.0.5",
