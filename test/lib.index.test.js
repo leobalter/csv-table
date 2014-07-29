@@ -9,7 +9,7 @@ var dataOutFileLocation = path.resolve(__dirname, 'case/data-out.txt');
 var dataOut = fs.readFileSync(dataOutFileLocation, 'utf-8').trim();
 var csvParser = require('../');
 
-/*function cliTestHandler(test) {
+function cliTestHandler(test) {
   debug('cli handler');
   var binPath = path.resolve(__dirname, '../bin/csv-table');
   var cliParser = spawn('node', [
@@ -34,25 +34,16 @@ var csvParser = require('../');
 
   cliParser.on('close', test.done);
 }
-exports.cliTest = cliTestHandler;*/
+exports.cliTest = cliTestHandler;
 
 function apiTestHandler(test) {
   debug('api test handler');
 
-  /*function outDataHandler(data) {
-    debug('data handler');
-    data = data.toString().trim(); 
-    data = chalk.stripColor(data);
-
-    test.equal(data, dataOut, 'should be equal a CSV data table');
-  }
-  process.stdout.on('data', outDataHandler);*/
-
-  function csvParserHandler(table) {
+  function csvParserHandler(err, table) {
     debug('csv parser handler');
-    table.show();
+    test.equal(chalk.stripColor(table.table.toString().trim()), dataOut, 'should be equal a CSV data table');
     test.done();
   }
-  csvParser(dataInFileLocation, { columns: true }, csvParserHandler);
+  csvParser(dataInFileLocation, {}, csvParserHandler);
 }
 exports.apiTest = apiTestHandler;

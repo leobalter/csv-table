@@ -7,7 +7,7 @@
     "csv-table": "./bin/csv-table"
   },
   "scripts": {
-    "test": "export DEBUG=csv-table; nodeunit test/lib.index.test.js"
+    "test": "nodeunit test/lib.index.test.js"
   },
   "author": "Leo Balter",
   "license": "ISC",

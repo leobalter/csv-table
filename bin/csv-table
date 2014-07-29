@@ -41,9 +41,9 @@ function forEachHandler(csvFile) {
   options.escape = (options.comment ? csvTable.escape : null);
   options.rowDelimiter = (options.rowDelimiter ? csvTable.rowDelimiter : null);
 
-  function parseHandler(err, table) {
+  function csvParserHandler(err, result) {
     if (!err) {
-      table.show();
+      result.show();
     }
   }
   csvParser(csvFile, options, csvParserHandler);
