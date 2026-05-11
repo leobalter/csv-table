@@ -57,7 +57,7 @@ jobs:
       - name: Push version commit and tags
         run: |
           git push --follow-tags || {
-            echo "Push failed. Allow github-actions[bot] or GITHUB_TOKEN to bypass required pull requests/status checks on main for this workflow."
+            echo "Push failed. Allow github-actions[bot] to bypass required pull requests/status checks on main for this workflow."
             exit 1
           }
         env:
