@@ -1,0 +1,37 @@
+name: npm stage
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm install
+      - name: Setup npm stage CLI
+        run: |
+          mkdir -p ~/npm/localdev
+          git clone https://github.com/npm/cli.git ~/npm/localdev/cli
+          cd ~/npm/localdev/cli
+          git checkout reggi/stage || { echo "Missing reggi/stage branch in npm/cli"; exit 1; }
+          if [ ! -s "$HOME/.nvm/nvm.sh" ]; then
+            curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+          fi
+          export NVM_DIR="$HOME/.nvm"
+          . "$NVM_DIR/nvm.sh"
+          nvm install
+          npm install
+          node bin/npm-cli.js stage --help | grep -q "npm stage"
+      - name: Run npm stage
+        run: node ~/npm/localdev/cli/bin/npm-cli.js stage
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
