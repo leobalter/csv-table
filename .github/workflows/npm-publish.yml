@@ -52,7 +52,7 @@ jobs:
       - name: Push version commit and tags
         run: |
           git push --follow-tags || {
-            echo "Push failed. In repository Settings > Branches > Branch protection rules, allow github-actions[bot] to bypass required pull requests/status checks on main."
+            echo "Push failed. Check branch protection and workflow write permissions for main before retrying."
             exit 1
           }
         env:
