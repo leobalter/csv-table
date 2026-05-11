@@ -49,16 +49,16 @@ jobs:
       - name: Bump package version
         run: npm version "${{ inputs.release }}"
 
-      - name: Publish package
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Push version commit and tags
         run: |
           git push --follow-tags || {
-            echo "Push failed. Allow github-actions[bot] to bypass required pull requests/status checks on main for this workflow."
+            echo "Push failed. In repository Settings > Branches > Branch protection rules, allow github-actions[bot] to bypass required pull requests/status checks on main."
             exit 1
           }
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish package
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
