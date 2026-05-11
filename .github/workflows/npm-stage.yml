@@ -17,6 +17,18 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm install -g npm@latest
       - run: npm install
-      - run: npm stage
+      - name: Setup npm stage CLI
+        run: |
+          mkdir -p ~/npm/localdev
+          git clone https://github.com/npm/cli.git ~/npm/localdev/cli
+          cd ~/npm/localdev/cli
+          git checkout reggi/stage
+          export NVM_DIR="$HOME/.nvm"
+          . "$NVM_DIR/nvm.sh"
+          nvm install
+          npm install
+          node bin/npm-cli.js stage --help
+      - name: Run npm stage
+        run: node ~/npm/localdev/cli/bin/npm-cli.js stage
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
