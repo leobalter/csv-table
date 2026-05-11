@@ -15,14 +15,13 @@ jobs:
         with:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
-      - run: npm install -g npm@latest
       - run: npm install
       - name: Setup npm stage CLI
         run: |
           mkdir -p ~/npm/localdev
           git clone https://github.com/npm/cli.git ~/npm/localdev/cli
           cd ~/npm/localdev/cli
-          git checkout reggi/stage
+          git checkout reggi/stage || { echo "Missing reggi/stage branch in npm/cli"; exit 1; }
           if [ ! -s "$HOME/.nvm/nvm.sh" ]; then
             curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
           fi
