@@ -61,6 +61,10 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Push version commit and tags
-        run: git push --follow-tags
+        run: |
+          git push --follow-tags || {
+            echo "Push failed. Ensure main branch protection allows this workflow to push version commits and tags."
+            exit 1
+          }
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
