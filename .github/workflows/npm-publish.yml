@@ -52,7 +52,7 @@ jobs:
       - name: Push version commit and tags
         run: |
           git push --follow-tags || {
-            echo "Push failed. Check branch protection and workflow write permissions for main before retrying."
+            echo "Push failed. Check branch protection and workflow write permissions before retrying."
             exit 1
           }
         env:
