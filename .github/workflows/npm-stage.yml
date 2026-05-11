@@ -29,7 +29,7 @@ jobs:
           . "$NVM_DIR/nvm.sh"
           nvm install
           npm install
-          node bin/npm-cli.js stage --help
+          node bin/npm-cli.js stage --help | grep -q "npm stage"
       - name: Run npm stage
         run: node ~/npm/localdev/cli/bin/npm-cli.js stage
         env:
